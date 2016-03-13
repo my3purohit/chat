@@ -15,35 +15,32 @@ public class EchoServer
 		// TODO Auto-generated method stub
 		
 		//check args length > 1
-		if(args.length != 1)
+		if(args.length != 1) {
 			System.out.println("Enter  a port number\n");
-		
-		//create a new serversocket with args[0]
-		int portNo = Integer.parseInt(args[0]);
-		int count = 0;
-		ServerSocket server_socket = new ServerSocket(portNo);
-		Socket client_socket;
-		while(true){
-			try
-			{
-				
+		}else {
+			//create a new serversocket with args[0]
+			int portNo = Integer.parseInt(args[0]);
+			int count = 0;
+			ServerSocket server_socket = new ServerSocket(portNo);
+			Socket client_socket;
+			while (true) {
+				try {
+
 					client_socket = server_socket.accept();
-					
+
 					count++;
-					System.out.println("Thread count"+ count);
+					System.out.println("Thread count" + count);
 					ConnHandler connhandler = new ConnHandler(client_socket);
-					
+
 					clientList.add(connhandler);
 					new Thread(connhandler).start();
-				
+
+				} catch (IOException e) {
+					System.out.println("Exception caught when trying to listen on port "
+							+ portNo + " or listening for a connection");
+					System.out.println(e.getMessage());
+				}
 			}
-			
-			catch (IOException e) 
-			{
-	            System.out.println("Exception caught when trying to listen on port "
-	                + portNo + " or listening for a connection");
-	            System.out.println(e.getMessage());
-	        }
 		}
 	}
 

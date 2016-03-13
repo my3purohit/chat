@@ -14,20 +14,21 @@ public class Main {
         	int portNumber = 4444;
             try {
                     Socket serverSocket = new Socket("localhost", portNumber);
-                    PrintWriter out = new PrintWriter(serverSocket.getOutputStream(), true);
+                    PrintWriter out1 = new PrintWriter(serverSocket.getOutputStream(), true);
                     BufferedReader in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
                     BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             
                 System.out.println("You are now connected");
                 String input;
                 String message=null;
-                while ((input = stdIn.readLine()) != null) {
-                		if(input!="\n")
-                		{
-                			out.println(input);
-                    		System.out.println(in.readLine());	
-                		}
-            
+                while(true) {
+                    if (stdIn.ready()) {
+                        out1.println(stdIn.readLine());
+                        System.out.println(in.readLine());
+                    }
+                    if(in.ready()){
+                        System.out.println(in.readLine());
+                    }
                 }
             }
             finally{
