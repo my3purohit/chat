@@ -25,10 +25,7 @@ public class ConnHandler extends EchoServer implements Runnable{
 	public void run()
 	{
 		System.out.println("Creating a new client");
-		
-		
 		try{
-
 				//write to clients output stream
 				out =
 		                new PrintWriter(client_socket.getOutputStream(), true);
@@ -38,8 +35,7 @@ public class ConnHandler extends EchoServer implements Runnable{
 		                new InputStreamReader(client_socket.getInputStream()));	
 				
 					//System.out.println("Server listening on "+portNo);
-						
-			
+
 			System.out.println("Server listening......");
 			String inputLine;
 			String outputLine;
@@ -53,8 +49,9 @@ public class ConnHandler extends EchoServer implements Runnable{
 				{
 					itr.next().out.println(outputLine);
 				}
-				if (outputLine.equals("Bye."))
-				break;
+				if(outputLine.equals("Bye.")){
+                    out.println("Come back soon!!");
+                }
 			}
 			
 		} catch (IOException e) {
@@ -62,10 +59,6 @@ public class ConnHandler extends EchoServer implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
-
-
-	
 }
 	
 
